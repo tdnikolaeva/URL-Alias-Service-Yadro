@@ -1,5 +1,7 @@
 import random
 import string
+
+from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema
 from rest_framework import viewsets, permissions, status, mixins
 from rest_framework.decorators import action
@@ -16,6 +18,8 @@ class LinkViewSet(mixins.CreateModelMixin,
     serializer_class = LinkSerializer
     permission_classes = [permissions.IsAuthenticated]
     pagination_class = PageNumberPagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['is_active']
 
     def _generate_short_link(self, length=10):
         alphabet = string.ascii_letters + string.digits
