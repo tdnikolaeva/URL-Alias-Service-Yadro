@@ -128,3 +128,10 @@ REST_FRAMEWORK = {
     ],
     'PAGE_SIZE': 10,
 }
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'URL Alias API',
+    'DESCRIPTION': 'API documentation for URL alias service',
+    'VERSION': '1.0.0',
+    "SERVE_INCLUDE_SCHEMA": False
+}
