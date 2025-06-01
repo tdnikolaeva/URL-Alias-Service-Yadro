@@ -65,6 +65,7 @@ class UsagesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         return Response(serializer.data)
 
 
+@extend_schema(tags=['redirect'])
 class ShortLinkViewSet(mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     queryset = Link.objects.all()
     serializer_class = None
