@@ -33,11 +33,12 @@ class LinkViewSet(mixins.CreateModelMixin,
         serializer.save(short_link=short_link)
 
     @extend_schema(
+        request=None,
         responses={
             status.HTTP_204_NO_CONTENT: None,
         },
     )
-    @action(detail=True, methods=['patch'])
+    @action(detail=True, methods=['post'])
     def deactivate(self, request, pk=None):
         link = self.get_object()
         link.is_active = False
