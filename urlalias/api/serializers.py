@@ -30,5 +30,5 @@ class UsageStatisticsSerializer(serializers.ModelSerializer):
     def get_link(self, obj):
         request = self.context.get('request')
         if request and obj.short_link:
-            return request.build_absolute_uri(f'/r/{obj.short_link}')
-        return f'/r/{obj.short_link}' if obj.short_link else None
+            return request.build_absolute_uri(f'/{obj.short_link}')
+        return f'/{obj.short_link}' if obj.short_link else None
