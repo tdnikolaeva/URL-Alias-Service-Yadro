@@ -47,7 +47,7 @@ class LinkViewSet(mixins.CreateModelMixin,
 
 
 class UsagesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    queryset = Usage.objects.all()
+    queryset = Link.objects.all()
     serializer_class = UsageStatisticsSerializer
     pagination_class = None
 
