@@ -17,15 +17,18 @@ class LinkSerializer(serializers.ModelSerializer):
         return f'/{obj.short_link}'
 
 
-class UsageStatisticsSerializer(serializers.Serializer):
+class UsageStatisticsSerializer(serializers.ModelSerializer):
     link = serializers.SerializerMethodField()
-    original_link = serializers.URLField()
-    last_hour_clicks = serializers.IntegerField()
-    last_day_clicks = serializers.IntegerField()
+    last_hour_clicks = serializers.IntegerField(read_only=True)
+    last_day_clicks = serializers.IntegerField(read_only=True)
 
-    def get_link(self, link_obj):
+    class Meta:
+        model = Link
+        fields = ['link', 'original_link', 'last_hour_clicks', 'last_day_clicks']
+        read_only_fields = fields
+
+    def get_link(self, obj):
         request = self.context.get('request')
-        short_link = getattr(link_obj, 'short_link', None)
-        if short_link and request:
-            return request.build_absolute_uri(f'/{short_link}')
-        return f'/{short_link}' if short_link else None
+        if request and obj.short_link:
+            return request.build_absolute_uri(f'/r/{obj.short_link}')
+        return f'/r/{obj.short_link}' if obj.short_link else None

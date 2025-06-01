@@ -59,7 +59,7 @@ class UsagesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         qs = self.queryset.annotate(
             last_hour_clicks=Count('usage', filter=Q(usage__timestamp__gte=one_hour_ago)),
             last_day_clicks=Count('usage', filter=Q(usage__timestamp__gte=one_day_ago)),
-        ).order_by('-last_day_clicks')
+        ).order_by('-last_day_clicks', '-last_hour_clicks')
 
         serializer = self.get_serializer(qs, many=True)
         return Response(serializer.data)
