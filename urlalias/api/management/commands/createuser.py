@@ -1,4 +1,4 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
@@ -24,8 +24,6 @@ class Command(BaseCommand):
                 continue
             break
 
-        email = input('Email (можно оставить пустым): ').strip()
-
         while True:
             password = getpass.getpass('Password: ')
             password2 = getpass.getpass('Password (повторите): ')
@@ -42,7 +40,7 @@ class Command(BaseCommand):
                 continue
             break
 
-        user = UserModel.objects.create_user(username=username, email=email, password=password)
+        user = UserModel.objects.create_user(username=username, password=password)
         user.is_staff = False
         user.is_superuser = False
         user.save()
